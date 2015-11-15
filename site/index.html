@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mystery</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <script type="text/javascript" src="third_party/jquery-1.11.3.min.js"></script>
+    </head>
+    <body>
+        <div id="console">
+            <div id="console_text">
+                <p id="message_template" style="display:none">Yo</p>
+
+                <!-- Placeholder: this is where everything will be inserted -->
+
+                <div id="placeholder"></div>
+            </div>
+
+            <!-- The input box. Return false means that it won't try to refresh. -->
+            <form id="console_form" onsubmit="return false;">
+                <input type="text" size="50" onblur="this.focus()" autofocus autocomplete="off" id="console_input">
+            </form>
+        </div>
+
+        <script type="text/javascript" src="scripts/game.js"></script>
+
+    </body>
+</html>

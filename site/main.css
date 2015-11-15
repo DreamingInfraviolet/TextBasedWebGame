@@ -1,0 +1,66 @@
+body
+{
+    background-color: #000B06;
+    height: 100%;
+    overflow: hidden;
+    margin: 1%;
+
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #003526;
+}
+
+#console_text
+{
+    outline: thick;
+    outline-color: #02301D;
+    outline-width: 2px;
+    outline-style: solid;
+
+    background-color: #002516;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    margin: 10px;
+    height: 500px;
+}
+
+#console_form
+{
+    width: 100%;
+    text-align: center;
+    margin-toph: 4%;
+}
+input, select, textarea{
+    background-color: #001C11;
+    border-color: #02301D;
+    color: #007344;
+    outline-width: 0px;
+
+    height:30px;
+    width:100%;
+}
+
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
+}
+
+.user_output
+{
+    color: #007344;
+}
+.console_output
+{
+    color: #00f347;
+}
