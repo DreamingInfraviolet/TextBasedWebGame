@@ -1,66 +1,53 @@
 body
 {
-    background-color: #000B06;
-    height: 100%;
+    background-color: #030705;
     overflow: hidden;
-    margin: 1%;
-    font-family: 'Droid Sans Mono';
+    //font-family: 'Droid Sans Mono';
+    font-family: 'Calibri';
+    font-size: 24px;
 }
 
-::-webkit-scrollbar {
+html
+{
+    cursor: url(cursor.cur), default;
+}
+
+::-webkit-scrollbar
+{
     width: 12px;
 }
  
-::-webkit-scrollbar-track {
-}
- 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
     background-color: #003526;
 }
 
 #console_text
 {
-    outline: thick;
-    outline-color: #02301D;
-    outline-width: 2px;
-    outline-style: solid;
-
-    background-color: #002516;
+    text-align: center;
     overflow-x: hidden;
     overflow-y: scroll;
-
     margin: 10px;
-    height: 500px;
+    height: 640px;
+    padding: 10px;
 }
 
-#console_form
+input
 {
-    width: 100%;
+    background-color: #030705;
     text-align: center;
-    margin-toph: 4%;
-}
-input, select, textarea{
-    background-color: #001C11;
-    border-color: #02301D;
+    font-size: 24px;
+    border-style: none;
     color: #007344;
     outline-width: 0px;
-
-    height:30px;
     width:100%;
+    position: fixed;
+    bottom: 10px;
+    cursor: url(cursor.cur), default;
 }
 
-::selection {
-  background: #ffb7b7; /* WebKit/Blink Browsers */
-}
-::-moz-selection {
-  background: #ffb7b7; /* Gecko Browsers */
-}
+::selection      { background: #03d090; }
+::-moz-selection { background: #03d090; }
 
-.user_output
-{
-    color: #007344;
-}
-.console_output
-{
-    color: #00f347;
-}
+.user_output     { color: #003526; }
+.console_output  { color: #005546; }
