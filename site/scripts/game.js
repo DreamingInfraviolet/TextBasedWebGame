@@ -9,8 +9,10 @@ var textFadeInTime = 500;
 
 //Not that slowWritingCharDelay must be greater than 2*slowWritingTimeJitter!
 //Otherwise the jitter can result in an incorrect sequence of characters.
-var slowWritingCharDelay = 150;
-var slowWritingTimeJitter = 40;
+var slowWritingCharDelay = 140;
+var slowWritingTimeJitter = 30;
+
+//\u200c is an invisible character. Use it to make slow printing pause for a little bit.
 
 function setAcceptInput(value)
 {
@@ -30,13 +32,9 @@ $(document).ready(function()
         if(acceptInput==true)
         {
             var input = cleanInput($("#console_input").val());
-            writeFade(input, true);
-            
-            setTimeout(function() {handleInput(input)}, 500);
-
-            //Scroll down. Setting this to a big value, as it seems to designate the limit of scrolling.
-            $("#console_text").scrollTop(2000000000);
             $("#console_input").val("");
+            writeFade(input, true);
+            handleInput(input);
         }
         else
         {
@@ -86,15 +84,17 @@ function writeFade(text, isByUser)
             .attr("class", c)
             .insertBefore("#placeholder")
             .fadeIn(textFadeInTime);
+
+        $("#console_text").scrollTop(2000000000);
     }) (text, isByUser), isByUser==true ? userWriteDelay:systemWriteDelay);
 }
 
 /* Writes an array of words, one letter at a time. The letter '|' means a pause. */
 function writeSlowly(text, isByUser)
 {
+    var inputDisabledAtStart = !acceptInput;
         setTimeout((function(text, isByUser)
     {
-        var inputDisabledAtStart = !acceptInput;
         //Disable input so that it would not disturb subsequent writing.
         setAcceptInput(false);
 
@@ -114,13 +114,17 @@ function writeSlowly(text, isByUser)
                 setTimeout(function()
                 {
                     component.text(component.text()+text[index]);
+                    $("#console_text").scrollTop(2000000000);
                 }, slowWritingCharDelay*i + Math.floor((Math.random()-0.5)*2*slowWritingTimeJitter));
             })(i); //Currying!
         }
 
-        //Restore input when done
+        //When done,
         if(!inputDisabledAtStart)
-            setTimeout(function() { setAcceptInput(true); }, (text.length+1)*slowWritingCharDelay);
+            setTimeout(function()
+            {
+                setAcceptInput(true);            
+            }, (text.length+1)*slowWritingCharDelay);
 
     }) (text, isByUser), isByUser==true ? userWriteDelay:systemWriteDelay);
 }
