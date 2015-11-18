@@ -1,0 +1,16 @@
+Story: In a post nuclear apocalypse world, people are still waging war ._. The earth is desolate, and most people are living underground. Technology has suffered so there is no visual feedback. Your goal is (as a general) to wage war! For silly reasons. The war is now being fought by the sattelites that went undamaged. They can't see the earth, but the goal is to destroy earth bases.
+
+If the player wins or loses, they can no longer play the game. Any commands will yield an error and garbage noise. The command "deus ex machina" restores the game if the game is unavailable.
+
+Player is a commander.
+
+World is an N*N grid.
+
+Commands:
+check x y
+
+Resources:
+    Energy:
+        Some blocks will produce energy.
+    Sattelite:
+        
