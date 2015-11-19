@@ -13,4 +13,20 @@ Resources:
     Energy:
         Some blocks will produce energy.
     Sattelite:
-        
+        Each team has one. They are the eyes of the player. A sattelite can MOVE, or it can OBSERVE. It can also DESIGNATE a point of attack. If the two sattelites of the competing teams are on the same square, then the player will be able to intercept transmissions..? 
+
+
+Example:
+
+E - Player Energy
+F - Opponent energy
+A - Player sattelite
+B - Opponent sattelite
+
+0 0 0 0 0 E 0
+F 0 0 F B 0 0
+0 0 0 0 0 0 0
+0 0 E 0 0 0 F
+E 0 0 0 F 0 0
+0 0 0 A 0 0 0
+0 E F 0 0 E 0

@@ -4,13 +4,13 @@ var waitingNotifierBlinkTime = 200;
 var waitingNotifierFadeTime = 1000;
 var lastBlinkStartTime = Date.now()-waitingNotifierBlinkTime*4;
 var userWriteDelay = 50;
-var systemWriteDelay = 200;
-var textFadeInTime = 500;
+var systemWriteDelay = 800;
+var textFadeInTime = 50;
 
 //Not that slowWritingCharDelay must be greater than 2*slowWritingTimeJitter!
 //Otherwise the jitter can result in an incorrect sequence of characters.
-var slowWritingCharDelay = 140;
-var slowWritingTimeJitter = 30;
+var slowWritingCharDelay = 110;
+var slowWritingTimeJitter = 25;
 
 //\u200c is an invisible character. Use it to make slow printing pause for a little bit.
 
@@ -25,7 +25,10 @@ function setAcceptInput(value)
 
 $(document).ready(function()
 {
-    writeSlowly("Wake up, N\u200C\u200C\u200C\u200C\u200Ceo.", false);
+    setAcceptInput(true);
+    writeSlowly("Wake up, Neo.", false);
+    writeSlowly("The Matrix has you.");
+    writeSlowly("Follow the white rabbit.");
 
     $("form").submit(function()
     {
@@ -48,34 +51,43 @@ $(document).ready(function()
             }
         }
     });
-
-    setTimeout(function()
-    {
-        writeSlowly("The Matrix has you.");
-        setTimeout(function()
-        {
-            writeSlowly("Follow the white rabbit.");
-            setAcceptInput(true);
-        }, 5000);
-    }, 5000);
 });
 
 function cleanInput(input)
 {
-    return input.trim();
+    return input.replace(/\s+/g, ' ').trim();
 }
 
 function handleInput(input)
 {
-    if(input=="help")
-        writeSlowly("Help yourself, smoochie", false);
-    else if(input=="cls" || input=="clear")
-        clearConsole();
+    words = input.split(" ");
+    var matched = false;
+
+    switch(words.length)
+    {
+        case 1:
+            if(words[0]=="help")
+                matched = writeSlowly("Help yourself, smoochie", false);
+        break;
+        case 2:
+        break;
+        case 3:
+        break;
+        case 0:
+        break;
+    }
+
+    if(!matched)
+    {
+        //If we got here, the input was not recognised.
+        writeSlowly("Unrecognised input.", false);
+    }
 }
 
+/** Always returns true. */
 function writeFade(text, isByUser)
 {
-    setTimeout((function(text, isByUser)
+    setTimeout(function()
     {
         var c = isByUser ? "user_output" : "console_output";
         $("#message_template").clone()
@@ -86,17 +98,19 @@ function writeFade(text, isByUser)
             .fadeIn(textFadeInTime);
 
         $("#console_text").scrollTop(2000000000);
-    }) (text, isByUser), isByUser==true ? userWriteDelay:systemWriteDelay);
+    }, isByUser ? userWriteDelay:systemWriteDelay);
+    return true;
 }
 
-/* Writes an array of words, one letter at a time. The letter '|' means a pause. */
+/* Writes an array of words, one letter at a time. The letter '|' means a pause. Always returns true. */
 function writeSlowly(text, isByUser)
 {
     var inputDisabledAtStart = !acceptInput;
-        setTimeout((function(text, isByUser)
+    //Disable input so that it would not disturb subsequent writing.
+    setAcceptInput(false);
+
+    setTimeout(function()
     {
-        //Disable input so that it would not disturb subsequent writing.
-        setAcceptInput(false);
 
         var c = isByUser ? "user_output" : "console_output";
         var component = $("#message_template").clone()
@@ -126,5 +140,7 @@ function writeSlowly(text, isByUser)
                 setAcceptInput(true);            
             }, (text.length+1)*slowWritingCharDelay);
 
-    }) (text, isByUser), isByUser==true ? userWriteDelay:systemWriteDelay);
+    }, isByUser==true ? userWriteDelay:systemWriteDelay);
+
+    return true;
 }
