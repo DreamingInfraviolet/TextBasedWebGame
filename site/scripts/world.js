@@ -2,5 +2,5 @@ var grid;
 
 function initWorld()
 {
-    grid = {}
+    grid = {};
 }
