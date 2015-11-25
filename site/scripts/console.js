@@ -32,7 +32,7 @@ var Console =
 
     cleanInput : function(input)
     {
-        return input.replace(/\s+/g, ' ').trim();
+        return input.replace(/\s+/g, ' ').trim().toLowerCase();
     },
 
     /** Always returns true. */
