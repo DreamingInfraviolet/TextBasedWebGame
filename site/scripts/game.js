@@ -31,12 +31,37 @@ Node.prototype.setText = function(txt)
     return this;
 };
 
+Node.prototype.print = function()
+{
+    Console.writeSlowly(this.text+"\n", false);
+};
+
+
+
+function initGraph()
+{
+    var root = new Node("You find yourself looking at a dark console window, unsure of what to do. Naturally you grow bored and wish to leave. East of you is the kitchen, while north is the exit from the house. Where will you go?");
+    
+    var kitchen = root.addNode(new Node("Having entered the kitchen, you realise that you're kinda bored here as well. All that you can really do is go back. What now, pumpkin?"), "e");
+    
+    kitchen.addNode(root, "w");
+    
+    var outside = root.addNode(new Node("As you step outside, the frigid air assaults your lungs, making you want to go back inside. But lo! You locked yourself out! How typical! Now you're stuck there. GOOD JOB -.-"), "n");
+    
+    return root;
+}
+
+
+var graph = initGraph();
 
 //When ready
 $(function ()
 {
     Console.setAcceptInput(true);
-
+    
+    graph.print();
+    
+    
     $("form").submit(function()
     {
         var input;
@@ -55,7 +80,6 @@ $(function ()
 });
 
 
-
 function handleInput(input)
 {
     var words = input.split(" ");
@@ -68,19 +92,19 @@ function handleInput(input)
                 matched = Console.writeSlowly("Help yourself, smoochie", false);
             else if(words[0]=="west" || words[0]=="w" || words[0]=="left")
             {
-                matched = Console.writeSlowly("Moving west.", false);
+                matched = takeTransition("Moving west.", "w");
             }
             else if(words[0]=="east" || words[0]=="e" || words[0]=="right")
             {
-                matched = Console.writeSlowly("Moving east.", false);        
+                matched = takeTransition("Moving east.", "e");
             }
             else if(words[0]=="south" || words[0]=="s" || words[0]=="down")
             {
-                matched = Console.writeSlowly("Moving south.", false);
+                matched = takeTransition("Moving south.", "s");
             }
             else if(words[0]=="north" || words[0]=="n" || words[0]=="up")
             {
-                matched = Console.writeSlowly("Moving north.", false);
+                matched = takeTransition("Moving north.", "n");
             }
             
         break;
@@ -97,4 +121,12 @@ function handleInput(input)
         //If we got here, the input was not recognised.
         Console.writeSlowly("Unrecognised input.", false);
     }
+}
+
+function takeTransition(prefix, transition)
+{
+    Console.writeFade(prefix,false);
+    graph=graph.follow(transition);
+    graph.print();
+    return true;
 }

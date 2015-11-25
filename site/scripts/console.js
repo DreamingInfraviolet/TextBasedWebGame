@@ -16,8 +16,8 @@ var Console =
 
     //Not that slowWritingCharDelay must be greater than 2*slowWritingTimeJitter!
     //Otherwise the jitter can result in an incorrect sequence of characters.
-    slowWritingCharDelay     : 110,
-    slowWritingTimeJitter    : 25,
+    slowWritingCharDelay     : 50,
+    slowWritingTimeJitter    : 10,
 
     //\u200c is an invisible character. Use it to make slow printing pause for a little bit.
 
