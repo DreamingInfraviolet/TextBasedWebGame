@@ -3,6 +3,35 @@
 /* globals setTimeout: false */
 /* jslint node: true */
 
+
+//A node class to represent a graph.
+function Node(txt)
+{
+    this.text = txt;
+    this.branches={}; //Every object is a hash table......... .__.
+}
+
+//Add a node that can be reached if followed by the given transition.
+Node.prototype.addNode = function(node, transition)
+{
+    return (this.branches[transition]=node);
+};
+
+//Return the node when taking a transition.
+//Undefined if no such node exists.
+Node.prototype.follow = function(transition)
+{
+    return this.branches[transition];
+};
+
+//Change the text of a particular node
+Node.prototype.setText = function(txt)
+{
+    this.text=txt;
+    return this;
+};
+
+
 //When ready
 $(function ()
 {
