@@ -55,7 +55,9 @@ var Console =
         return true;
     },
 
-    /* Writes an array of words, one letter at a time. Always returns true. */
+    /* Writes an array of words, one letter at a time. Always returns true.
+     * @param text The text to be written
+     * @param isByUser If true, the text will be written in a different shade. */
     writeSlowly : function(text, isByUser)
     {
         var inputDisabledAtStart = !this.acceptInput;

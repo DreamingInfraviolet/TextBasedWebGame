@@ -6,11 +6,11 @@
 function initGraph()
 {
     return worldRoot;
-    return root;
 }
 
 
 var graph = initGraph();
+var locationHistory = [graph];
 
 //When ready
 $(function ()
@@ -65,9 +65,17 @@ function handleInput(input)
             {
                 matched = takeTransition("Moving north.", "n");
             }
+            else if(words[0]=="back" || words[0]=="return" || words[0]=="go back")
+            {
+                if(locationHistory.length < 2)
+                    Console.writeSlowly("You can't go back.");
+                else
+                    moveToNode("Moving back.", locationHistory.pop(), false);
+                matched = true;
+            }
             
         break;
-        case 2:
+        case 2:print
         break;
         case 3:
         break;
@@ -82,17 +90,28 @@ function handleInput(input)
     }
 }
 
+function moveToNode(prefix, node, saveHistoryEntry)
+{
+    Console.writeFade(prefix, false);
+    if(saveHistoryEntry)
+        locationHistory.push(graph);
+    graph = node;
+    graph.print();
+    graph.visited = true;
+
+    return true;
+}
+
 function takeTransition(prefix, transition)
 {
     if(graph.follow(transition)!==null)
-    {    
-        Console.writeFade(prefix,false);
-        graph=graph.follow(transition);
-        graph.print();
-        graph.visited = true;
+    {
+        moveToNode(prefix, graph.follow(transition), true);
     }
     else
+    {
         Console.writeFade("Can't go there!");
-    
+    }
+
     return true;
 }
