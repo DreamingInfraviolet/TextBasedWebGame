@@ -1,11 +1,9 @@
 body
 {
     background-color: #030705;
-    overflow: hidden;
     //font-family: 'Droid Sans Mono';
     font-family: 'Calibri';
-    font-size: 24px;
-    
+    font-size: 24px;    
 }
 
 html
@@ -29,7 +27,7 @@ html
     overflow-x: hidden;
     overflow-y: scroll;
     margin: 10px;
-    height: 640px;
+    height: 80%;
     padding: 10px;
 }
 
@@ -39,10 +37,9 @@ input
     text-align: center;
     font-size: 24px;
     border-style: none;
-    color: #007344;
+    color: #107344;
     outline-width: 0px;
     width:100%;
-    position: fixed;
     bottom: 10px;
     cursor: url(cursor.cur), default;
 }
@@ -51,7 +48,7 @@ input
 ::-moz-selection { background: #03d090; }
 
 .user_output     { color: #003526; }
-.console_output  { color: #005546; }
+.console_output  { color: #106556; }
 
 #waiting_notifier
 {
